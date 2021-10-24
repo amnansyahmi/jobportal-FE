@@ -18,7 +18,7 @@ const ApplicationForm = ({match}) => (
                 <div className="app-main__inner">
                     <Route path={`${match.url}/Forms`} component={Forms}/>
                 </div>
-                <AppFooter/>
+                {/* <AppFooter/> */}
             </div>
         </div>
     </Fragment>

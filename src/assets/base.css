@@ -8956,7 +8956,8 @@ button,
   background-image: linear-gradient(to top, #c471f5 0%, #fa71cd 100%) !important; }
 
 .bg-strong-bliss {
-  background-image: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%) !important; }
+  background-image: linear-gradient(to right, #000000 0%, #1d2d44 19%, #465161 60%, #2b3c51 100%) !important; }
+  /* background-image: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%) !important; } */
 
 .bg-grow-early {
   background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%) !important; }

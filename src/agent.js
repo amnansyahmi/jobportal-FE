@@ -123,24 +123,32 @@ const GetConfigCodesDtl = {
     requests.get(`/GetConfigCodesDtl?codePrime=${codePrime}`),
 }
 
+const GetCodeConfig = {
+  get: (PrimeCode) =>
+    requests.get(`/GetCodeConfig?PrimeCode=${PrimeCode}`),
+}
+
 const GetJobList = {
   get: () =>
     requests.get(`/GetJobList`),
 }
 
 const AddApplicant = {
-  post: (firstName, lastName, jobTitle, yearsExp, prefLocation, vacancyFoundIn, noticePeriod, contactNo, address, email) =>
+  post: (firstName, lastName, jobId, yearsExp, prefLocation, vacancyFoundIn, noticePeriod, contactNo, address, email, fileName, filePath, fileEncode) =>
     requests.JSONPost(`/AddApplicant`,qs.stringify({ 
       firstName: encodeURIComponent(firstName), 
       lastName: encodeURIComponent(lastName), 
-      jobTitle: encodeURIComponent(jobTitle), 
+      jobId: encodeURIComponent(jobId), 
       yearsExp: encodeURIComponent(yearsExp), 
       prefLocation: encodeURIComponent(prefLocation), 
       vacancyFoundIn: encodeURIComponent(vacancyFoundIn), 
       noticePeriod: encodeURIComponent(noticePeriod), 
       contactNo: encodeURIComponent(contactNo), 
       address: encodeURIComponent(address), 
-      email: encodeURIComponent(email)
+      email: encodeURIComponent(email),
+      fileName: encodeURIComponent(fileName), 
+      filePath: encodeURIComponent(filePath), 
+      fileEncode: encodeURIComponent(fileEncode)
     })),
 };
   
@@ -157,6 +165,7 @@ export default {
   GetConfigCodesDtl,
   GetJobList,
   AddApplicant,
+  GetCodeConfig,
   
   setToken: _token => { token = _token; }
 };

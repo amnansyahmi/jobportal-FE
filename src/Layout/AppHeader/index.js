@@ -35,10 +35,10 @@ class Header extends React.Component {
                         {'header-mobile-open': enableMobileMenuSmall},
                     )}>
                         <div className="app-header-left">
-                            <SearchBox/>
+                            {/* <SearchBox/> */}
                         </div>
                         <div className="app-header-right">
-                            <UserBox/>
+                            {/* <UserBox/> */}
                         </div>
                     </div>
                 </ReactCSSTransitionGroup>

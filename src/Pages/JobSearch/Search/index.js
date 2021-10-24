@@ -1,58 +1,26 @@
 import React, {Component} from 'react';
 import DataTable from 'react-data-table-component';
-import { Row, CardHeader } from 'reactstrap';
+import { Row, Col, CardHeader, Button  } from 'reactstrap';
 import agent from 'agent'
 import { Redirect } from 'react-router-dom';
 import moment from 'moment';
+import applicationForm from '../../ApplicationForm/Forms'
+import { Link } from 'react-router-dom'
 // import searchIcon  from 'assets/theme/logoicon/search.png'
 // import existingIcon  from 'assets/theme/logoicon/exist.png'
 // import temporaryIcon  from 'assets/theme/logoicon/temporary.png'
 // import customStyles from 'Admin/componentStyle/datatable/CustomStyleMain';
 
-class Search extends Component {
+export default class Search extends Component {
 
 constructor(props) {
         super(props);
 
-        this.toggletab = this.toggletab.bind(this);
-
         this.state = {
-            activeTab: '1',
-            modal: false,
-            modal2: false,
             data: [],
             data2: [],
-            data3: [],
-            filter: '',
             showing: false,
         };
-
-        this.toggle = this.toggle.bind(this);
-        this.toggle2 = this.toggle2.bind(this);
-    }
-
-    toggle() {
-        this.setState({
-            modal: !this.state.modal
-        });
-    }
-
-    toggle2(codeSeq,userID,userType) {
-        this.setState({
-            modal2: !this.state.modal2,
-            codeSeq: codeSeq,
-            userID: userID,
-            userType: userType
-        });
-        //console.log('userType',this.state.userType)
-    }
-
-    toggletab(tab) {
-        if (this.state.activeTab !== tab) {
-            this.setState({
-                activeTab: tab
-            });
-        }
     }
 
     onSearchValue = () => {
@@ -63,9 +31,27 @@ constructor(props) {
       });
     }
 
+    btnApply = (jobId) => {
+        alert(jobId);
+      }
+
     ExpandedComponent = (row) => {
         return (
-            <div dangerouslySetInnerHTML={{ __html: row.data.JobDescription }} />
+            <div>
+            <Row  style={{padding: '35px'}}>
+                <Col>
+                    <Row><b>Job Description</b></Row>
+                    <br/>
+                    <Row style={{textAlign:'justify'}}><div dangerouslySetInnerHTML={{ __html: row.data.JobDescription }} /></Row>
+                    <br/>
+                    <Row><Col className="text-center text-md-right">
+                        <Link to={{pathname: "/ApplicationForm/Forms", JobID: row.data.JobID, JobTitle: row.data.JobTitle }}><Button color="primary" className="mr-1">Apply</Button></Link>
+                        {/* <Link to={applicationForm} className="btn btn-primary">Apply</Link> */}
+                        {/* </Link> */}
+                    </Col></Row>
+                </Col>
+            </Row>
+            </div>
         )
             
     }
@@ -83,7 +69,6 @@ constructor(props) {
             this.setState({
                 data: result.data,
                 data2: result.data,
-                data3: result.data,
                 loading: true
             });
         });
@@ -150,4 +135,3 @@ constructor(props) {
   }
 };
 
-export default Search;

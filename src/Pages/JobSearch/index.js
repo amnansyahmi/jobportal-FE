@@ -18,7 +18,7 @@ const JobSearch = ({match}) => (
                 <div className="app-main__inner">
                     <Route path={`${match.url}/Search`} component={Search}/>
                 </div>
-                <AppFooter/>
+                {/* <AppFooter/> */}
             </div>
         </div>
     </Fragment>

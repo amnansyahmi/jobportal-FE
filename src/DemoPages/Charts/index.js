@@ -24,7 +24,7 @@ const Charts = ({match}) => (
                     <Route path={`${match.url}/chartjs`} component={ChartsChartJs}/>
 
                 </div>
-                <AppFooter/>
+                {/* <AppFooter/> */}
             </div>
         </div>
     </Fragment>
