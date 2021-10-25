@@ -13,9 +13,14 @@ export const JobPortalNav = [
         to: '#/JobSearch/Search',
     },
     {
-        icon: 'pe-7s-rocket',
+        icon: 'pe-7s-news-paper',
         label: 'Application Form',
         to: '#/ApplicationForm/Forms',
+    },
+    {
+        icon: 'pe-7s-note2',
+        label: 'Check Application Status',
+        to: '#/ApplicantStatus/CheckStatus',
     },
 ];
 export const ComponentsNav = [

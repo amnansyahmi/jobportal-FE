@@ -162,7 +162,7 @@ export default class Forms extends React.Component {
     }
 
     setJobListValues = (ddJobList, jobType) => {
-        console.log(this.state.skillData2.filter(s => s.JobType == jobType));
+        // console.log(this.state.skillData2.filter(s => s.JobType == jobType));
         this.setState({ 
             ddJobList: ddJobList,
             skillData: this.state.skillData2.filter(s => s.JobType == jobType),
@@ -203,7 +203,6 @@ export default class Forms extends React.Component {
         for (var i = 0, length = radios.length; i < length; i++) 
         {
             if (radios[i].checked) {
-                console.log('radios[i].value',radios[i].value);
                 this.setState({
                     vacancyFoundIn: radios[i].value
                 })

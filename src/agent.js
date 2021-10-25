@@ -103,6 +103,11 @@ const GetCodeConfig = {
     requests.get(`/GetCodeConfig?PrimeCode=${PrimeCode}`),
 }
 
+const GetApplicantDetails = {
+  get: (email) =>
+    requests.get(`/GetApplicantDetails?email=${email}`),
+}
+
 const GetJobList = {
   get: () =>
     requests.get(`/GetJobList`),
@@ -145,6 +150,7 @@ export default {
   GetSkills,
   AddApplicant,
   GetCodeConfig,
+  GetApplicantDetails,
   
   setToken: _token => { token = _token; }
 };

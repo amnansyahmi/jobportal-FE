@@ -31,10 +31,6 @@ constructor(props) {
       });
     }
 
-    btnApply = (jobId) => {
-        alert(jobId);
-      }
-
     ExpandedComponent = (row) => {
         return (
             <div>
@@ -72,7 +68,6 @@ constructor(props) {
                 loading: true
             });
         });
-        //console.log('userType',this.state.data.AUDIT_USER_TYPE);
 
     }
 
@@ -80,35 +75,49 @@ constructor(props) {
 
     const columns = [
     {
-        name: '#',
-        sortable: true,
-        cell: (row, index) => index + 1,
-        width: '5%'
+      name: '#',
+      sortable: true,
+      cell: (row, index) => index + 1,
+      width: '5%'
     },
     {
-        name: 'Job Title',
-        selector: row => row['JobTitle'],
-        sortable: true,
-        wrap: true,
-        width: '35%'
+      name: 'Job Title',
+      selector: row => row['JobTitle'],
+      sortable: true,
+      wrap: true,
+      width: '29%'
     },
     {
-        name: 'Salary Range',
-        selector: row => row['SalaryRange'],
-        sortable: true,
-        wrap: true,
-      },
-    {
-        name: 'Posted Date',
-        selector: row => moment(row['PostedDt']).format('DD/MM/YYYY'),
-        sortable: true,
-        wrap: true,
+      name: 'Salary Range',
+      selector: row => row['SalaryRange'],
+      sortable: true,
+      wrap: true,
+      center: true,
+      width: '16%'
     },
     {
-        name: 'Closing Date',
-        selector: row => moment(row['ClosingDt']).format('DD/MM/YYYY'),
-        sortable: true,
-        wrap: true,
+      name: 'Posted Date',
+      selector: row => moment(row['PostedDt']).format('DD/MM/YYYY'),
+      sortable: true,
+      center: true,
+      wrap: true,
+      width: '14%'
+    },
+    {
+      name: 'Closing Date',
+      selector: row => moment(row['ClosingDt']).format('DD/MM/YYYY'),
+      sortable: true,
+      center: true,
+      wrap: true,
+      width: '14%'
+    },
+    {
+      name: 'Submitted Application',
+      selector: row => row['SubmittedApplication'],
+      sortable: true,
+      center: true,
+      wrap: true,
+      width: '18%'
     },
 ];
 
