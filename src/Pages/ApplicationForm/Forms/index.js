@@ -3,7 +3,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import agent from 'agent';
 import {
     Col, Card, CardBody, Row,
-    CardTitle, Button, Form, FormGroup, Label, Input, FormText
+    CardTitle, Button, Form, FormGroup, Label, Input, ButtonGroup
 } from 'reactstrap';
 import { DropzoneArea } from 'material-ui-dropzone';
 import Select from "react-dropdown-select";
@@ -30,8 +30,13 @@ export default class Forms extends React.Component {
             yearsExp: '',
             jobTitle: this.props.location.JobTitle,
             JobID: this.props.location.JobID,
+            JobType: this.props.location.JobType,
             regexp : /^[0-9\b]+$/,
-            vacancyFoundInList: []
+            vacancyFoundInList: [],
+            cSelected: [],
+            skillData: [],
+            skillData2: [],
+            showing: false
         }
         this.onDrop = (files) => {
             this.setState({files})
@@ -41,6 +46,7 @@ export default class Forms extends React.Component {
 
         this.onHandleNumberInputChange = this.onHandleNumberInputChange.bind(this);
         this.handleFile = this.handleFile.bind(this);
+        this.onCheckboxBtnClick = this.onCheckboxBtnClick.bind(this);
     }
 
     handleFile(files) {
@@ -114,10 +120,19 @@ export default class Forms extends React.Component {
 
     componentDidMount()
     {
+        agent.GetSkills.get().then(result => {
+            this.setState({
+                skillData: result.data,
+                skillData2: result.data
+            });
+        });
+
         if (typeof this.state.JobID != 'undefined')
         {  
             this.setState({
-                searchJobID: this.state.JobID
+                searchJobID: this.state.JobID,
+                showing: true,
+                // skillData: this.state.skillData2.filter(s => s.JobType == this.state.JobType),
             })
         }else{
             this.setState({
@@ -132,7 +147,8 @@ export default class Forms extends React.Component {
             });
             const jobListOption = result.data.map( d => ({
               "value" : d.JobID,
-              "label" : d.JobTitle
+              "label" : d.JobTitle,
+              "type" : d.JobType,
             }))
             this.setState({jobListOption: jobListOption})
         });
@@ -140,9 +156,30 @@ export default class Forms extends React.Component {
         agent.GetCodeConfig.get(101).then(result => {
             this.setState({vacancyFoundInList: result.data.filter(s => s.CodeStatus == 1)})
         })
+
+        
     }
 
-    setJobListValues = ddJobList => this.setState({ ddJobList });
+    setJobListValues = (ddJobList, jobType) => {
+        console.log(this.state.skillData2.filter(s => s.JobType == jobType));
+        this.setState({ 
+            ddJobList: ddJobList,
+            skillData: this.state.skillData2.filter(s => s.JobType == jobType),
+            showing: true
+        })
+
+    };
+
+    onCheckboxBtnClick(selected) {
+        
+        const index = this.state.cSelected.indexOf(selected);
+        if (index < 0) {
+            this.state.cSelected.push(selected);
+        } else {
+            this.state.cSelected.splice(index, 1);
+        }
+        this.setState({cSelected: [...this.state.cSelected]});
+    }
 
 
     handleSubmit = (event) => {
@@ -184,7 +221,8 @@ export default class Forms extends React.Component {
         const fileName = this.state.fileName;
         const filePath = this.state.filePath; 
         const fileEncode = this.state.fileEncode;
-        agent.AddApplicant.post(firstName, lastName, jobId, yearsExp, prefLocation, vacancyFoundIn, noticePeriod, contactNo, address, email, fileName, filePath, fileEncode)
+        const skills = this.state.cSelected;
+        agent.AddApplicant.post(firstName, lastName, jobId, yearsExp, prefLocation, vacancyFoundIn, noticePeriod, contactNo, address, email, fileName, filePath, fileEncode, skills)
             .then(result => {
                 if (result.data.status) {
                     this.setState({redirect: true, isLoading: false});
@@ -250,7 +288,7 @@ export default class Forms extends React.Component {
                                                 // valueField={this.state.valueField}
                                                 options={this.state.jobListOption}
                                                 dropdownGap={5}
-                                                onChange={values => this.setJobListValues(values.map(item => item.value))}
+                                                onChange={values => this.setJobListValues(values.map(item => item.value),values.map(item => item.type))}
                                                 noDataLabel="No matches found"
                                             />
                                         }
@@ -259,6 +297,44 @@ export default class Forms extends React.Component {
                                         <Input type="text" name="jobTitle" id="jobTitle"/> */}
                                     </Col>
                                 </FormGroup>
+                                {this.state.showing === true ? 
+                                    <FormGroup row>
+                                        <Label for="jobTitle" sm={3}>Skills</Label>
+                                        <Col sm={9}>
+                                        {this.state.searchJobID  !== '' ?
+                                           this.state.skillData.filter(s => s.JobType == this.state.JobType).map(row => 
+                                            {
+                                                return(<Row  style={{paddingLeft: '25px'}} form><Input type="checkbox" id={row.SkillID} onClick={() => this.onCheckboxBtnClick(row.SkillID)} />{row.SkillDesc}</Row>)
+                                            })
+                                        :
+                                            this.state.skillData.map(row => 
+                                            {
+                                                return(<Row  style={{paddingLeft: '25px'}} form><Input type="checkbox" id={row.SkillID} onClick={() => this.onCheckboxBtnClick(row.SkillID)} />{row.SkillDesc}</Row>)
+                                            })
+                                        }
+                                        </Col>
+                                    </FormGroup>
+                                :
+                                    null    
+                            }
+                                {/* <FormGroup row>
+                                    <Label for="jobTitle" sm={3}>Job Title</Label>
+                                    <Col sm={9}>
+                                        {this.state.searchJobID  !== '' ?
+                                            <Input type="text" name="jobTitle" id="jobTitle" value={this.props.location.JobTitle} disabled/>
+                                        :
+                                            <StyledSelect
+                                                separator={true}                                   
+                                                className="ddstyle"
+                                                clearable={true}
+                                                // labelField={this.state.labelField}
+                                                // valueField={this.state.valueField}
+                                                options={this.state.jobListOption}
+                                                dropdownGap={5}
+                                                noDataLabel="No matches found"
+                                            />
+                                        }
+                                </FormGroup> */}
                                 <FormGroup row>
                                     <Label for="yearsExp" sm={3}>Number Of Years' Experience</Label>
                                     <Col sm={9}>

@@ -33,12 +33,6 @@ const requests = {
     axios.post(`${API_ROOT}${url}`),
   JSONPost: (url,data) =>
     axios.post(`${API_ROOT}${url}`,`${data}`,config),  
-
-    // axios.get(`${API_ROOT}${url}`).use(tokenPlugin).then(responseBody),
-  // put: (url, body) =>
-  //   superagent.put(`${API_ROOT}${url}`, body).use(tokenPlugin).then(responseBody),
-  // post: (url, body) =>
-  //   superagent.post(`${API_ROOT}${url}`, body).use(tokenPlugin).then(responseBody)
 };
 
 const Auth = {
@@ -104,25 +98,6 @@ const Login = {
     requests.get(`/login?userid=${userid}&password=${encodeURIComponent(password)}`),
 };
 
-const ForgotPassword = {
-  post: (userid, email) =>
-    requests.post(`/ForgotPassword?userid=${userid}&email=${email}`),
-  get: (userid, email) =>
-    requests.get(`/ForgotPassword?userid=${userid}&email=${email}`),
-};
-
-const RecoverAccess = {
-  post: (userid, tempPassword, newPassword, confirmPassword) =>
-    requests.post(`/RecoverAccess?userid=${userid}&tempPassword=${encodeURIComponent(tempPassword)}&newPassword=${encodeURIComponent(newPassword)}&confirmNewPassword=${encodeURIComponent(confirmPassword)}`),
-  get: (userid, tempPassword, newPassword, confirmPassword) =>
-    requests.get(`/RecoverAccess?userid=${userid}&tempPassword=${encodeURIComponent(tempPassword)}&newPassword=${encodeURIComponent(newPassword)}&confirmNewPassword=${encodeURIComponent(confirmPassword)}`),
-};
-
-const GetConfigCodesDtl = {
-  get: (codePrime) =>
-    requests.get(`/GetConfigCodesDtl?codePrime=${codePrime}`),
-}
-
 const GetCodeConfig = {
   get: (PrimeCode) =>
     requests.get(`/GetCodeConfig?PrimeCode=${PrimeCode}`),
@@ -133,8 +108,13 @@ const GetJobList = {
     requests.get(`/GetJobList`),
 }
 
+const GetSkills = {
+  get: () =>
+    requests.get(`/GetSkills`),
+}
+
 const AddApplicant = {
-  post: (firstName, lastName, jobId, yearsExp, prefLocation, vacancyFoundIn, noticePeriod, contactNo, address, email, fileName, filePath, fileEncode) =>
+  post: (firstName, lastName, jobId, yearsExp, prefLocation, vacancyFoundIn, noticePeriod, contactNo, address, email, fileName, filePath, fileEncode, skills) =>
     requests.JSONPost(`/AddApplicant`,qs.stringify({ 
       firstName: encodeURIComponent(firstName), 
       lastName: encodeURIComponent(lastName), 
@@ -148,7 +128,8 @@ const AddApplicant = {
       email: encodeURIComponent(email),
       fileName: encodeURIComponent(fileName), 
       filePath: encodeURIComponent(filePath), 
-      fileEncode: encodeURIComponent(fileEncode)
+      fileEncode: encodeURIComponent(fileEncode),
+      skills: encodeURIComponent(skills)
     })),
 };
   
@@ -156,14 +137,12 @@ export default {
   Articles,
   Auth,
   Comments,
-  ForgotPassword,
   Login,
-  RecoverAccess,
   Tags,
 
 
-  GetConfigCodesDtl,
   GetJobList,
+  GetSkills,
   AddApplicant,
   GetCodeConfig,
   

@@ -45,7 +45,7 @@ constructor(props) {
                     <Row style={{textAlign:'justify'}}><div dangerouslySetInnerHTML={{ __html: row.data.JobDescription }} /></Row>
                     <br/>
                     <Row><Col className="text-center text-md-right">
-                        <Link to={{pathname: "/ApplicationForm/Forms", JobID: row.data.JobID, JobTitle: row.data.JobTitle }}><Button color="primary" className="mr-1">Apply</Button></Link>
+                        <Link to={{pathname: "/ApplicationForm/Forms", JobID: row.data.JobID, JobTitle: row.data.JobTitle, JobType: row.data.JobType }}><Button color="primary" className="mr-1">Apply</Button></Link>
                         {/* <Link to={applicationForm} className="btn btn-primary">Apply</Link> */}
                         {/* </Link> */}
                     </Col></Row>
@@ -83,13 +83,14 @@ constructor(props) {
         name: '#',
         sortable: true,
         cell: (row, index) => index + 1,
-        width: '20px'
+        width: '5%'
     },
     {
-      name: 'Job Title',
-      selector: row => row['JobTitle'],
-      sortable: true,
-      wrap: true,
+        name: 'Job Title',
+        selector: row => row['JobTitle'],
+        sortable: true,
+        wrap: true,
+        width: '35%'
     },
     {
         name: 'Salary Range',
@@ -103,6 +104,12 @@ constructor(props) {
         sortable: true,
         wrap: true,
     },
+    {
+        name: 'Closing Date',
+        selector: row => moment(row['ClosingDt']).format('DD/MM/YYYY'),
+        sortable: true,
+        wrap: true,
+    },
 ];
 
     return (
@@ -111,10 +118,7 @@ constructor(props) {
                 <div className="w-100">
                   <CardHeader className="bg-main-color border-0 p-1 w-100">
                     <div className="input-group">
-                      <span className="ml-2 span">
-                        {/* <img alt="" src={searchIcon} aria-hidden="true"></img> */}
-                      </span>
-                      <input type="text" className="ml-2 search-form" color="white" onChange={this.onSearchValue} id="searchValue" placeholder="Search by field value"></input>
+                      <input type="text" className="ml-2 search-form" color="white" onChange={this.onSearchValue} id="searchValue" placeholder="Search by Job Title"></input>
                     </div>
                   </CardHeader>
                 </div>
