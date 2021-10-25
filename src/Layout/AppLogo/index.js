@@ -47,7 +47,7 @@ class HeaderLogo extends React.Component {
         return (
             <Fragment>
                 <div className="app-header__logo">
-                    <h2 style={{color:'white'}}>Job Portal</h2>
+                    <h3 style={{color:'white'}}>Job Portal</h3>
                     {/* <div className="logo-src"/> */}
                     <div className="header__pane ml-auto">
                         <div onClick={this.toggleEnableClosedSidebar}>

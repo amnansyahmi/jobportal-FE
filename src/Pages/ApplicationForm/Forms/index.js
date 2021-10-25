@@ -3,11 +3,12 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import agent from 'agent';
 import {
     Col, Card, CardBody, Row,
-    CardTitle, Button, Form, FormGroup, Label, Input, ButtonGroup
+    CardTitle, Button, Form, FormGroup, Label, Input
 } from 'reactstrap';
 import { DropzoneArea } from 'material-ui-dropzone';
 import Select from "react-dropdown-select";
 import styled from "@emotion/styled";
+import swal from 'sweetalert';
 
 const StyledSelect = styled(Select)`
   ${({ dropdownRenderer }) =>
@@ -226,17 +227,22 @@ export default class Forms extends React.Component {
             .then(result => {
                 if (result.data.status) {
                     this.setState({redirect: true, isLoading: false});
+                    swal({
+                        title: 'Thank you. Your form has been submitted successfully.',
+                        icon: 'success',
+                        button: 'Close',
+                      }).then(() => {window.location.reload();})
                 }
                 else
                 {
-                    // swal({prefLocation
-                    //     title: result.data.errorMsg,
-                    //     icon: 'error',
-                    //     button: 'Close',
-                    // })
+                    swal({
+                        title: result.data.errorMsg,
+                        icon: 'error',
+                        button: 'Close',
+                    })
                     this.setState({isLoading: false});
                 }
-                window.location.reload();
+                
             })
             .catch(error => {
                 // swal({
@@ -316,25 +322,7 @@ export default class Forms extends React.Component {
                                     </FormGroup>
                                 :
                                     null    
-                            }
-                                {/* <FormGroup row>
-                                    <Label for="jobTitle" sm={3}>Job Title</Label>
-                                    <Col sm={9}>
-                                        {this.state.searchJobID  !== '' ?
-                                            <Input type="text" name="jobTitle" id="jobTitle" value={this.props.location.JobTitle} disabled/>
-                                        :
-                                            <StyledSelect
-                                                separator={true}                                   
-                                                className="ddstyle"
-                                                clearable={true}
-                                                // labelField={this.state.labelField}
-                                                // valueField={this.state.valueField}
-                                                options={this.state.jobListOption}
-                                                dropdownGap={5}
-                                                noDataLabel="No matches found"
-                                            />
-                                        }
-                                </FormGroup> */}
+                                }
                                 <FormGroup row>
                                     <Label for="yearsExp" sm={3}>Number Of Years' Experience</Label>
                                     <Col sm={9}>
@@ -414,69 +402,6 @@ export default class Forms extends React.Component {
                                         />
                                     </Col>
                                 </FormGroup>
-                                {/* <FormGroup row>
-                                    <Label for="exampleSelect" sm={2}>Select</Label>
-                                    <Col sm={10}>
-                                        <Input type="select" name="select" id="exampleSelect"/>
-                                    </Col>
-                                </FormGroup>
-                                <FormGroup row>
-                                    <Label for="exampleSelectMulti" sm={2}>Select Multiple</Label>
-                                    <Col sm={10}>
-                                        <Input type="select" name="selectMulti" id="exampleSelectMulti" multiple/>
-                                    </Col>
-                                </FormGroup>
-                                <FormGroup row>
-                                    <Label for="exampleText" sm={2}>Text Area</Label>
-                                    <Col sm={10}>
-                                        <Input type="textarea" name="text" id="exampleText"/>
-                                    </Col>
-                                </FormGroup>
-                                <FormGroup row>
-                                    <Label for="exampleFile" sm={2}>File</Label>
-                                    <Col sm={10}>
-                                        <Input type="file" name="file" id="exampleFile"/>
-                                        <FormText color="muted">
-                                            This is some placeholder block-level help text for the above input.
-                                            It's a bit lighter and easily wraps to a new line.
-                                        </FormText>
-                                    </Col>
-                                </FormGroup>
-                                <FormGroup tag="fieldset" row>
-                                    <legend className="col-form-label col-sm-2">Radio Buttons</legend>
-                                    <Col sm={10}>
-                                        <FormGroup check>
-                                            <Label check>
-                                                <Input type="radio" name="radio2"/>{' '}
-                                                Option one is this and that—be sure to include why it's great
-                                            </Label>
-                                        </FormGroup>
-                                        <FormGroup check>
-                                            <Label check>
-                                                <Input type="radio" name="radio2"/>{' '}
-                                                Option two can be something else and selecting it will deselect option
-                                                one
-                                            </Label>
-                                        </FormGroup>
-                                        <FormGroup check disabled>
-                                            <Label check>
-                                                <Input type="radio" name="radio2" disabled/>{' '}
-                                                Option three is disabled
-                                            </Label>
-                                        </FormGroup>
-                                    </Col>
-                                </FormGroup>
-                                <FormGroup row>
-                                    <Label for="checkbox2" sm={2}>Checkbox</Label>
-                                    <Col sm={{size: 10}}>
-                                        <FormGroup check>
-                                            <Label check>
-                                                <Input type="checkbox" id="checkbox2"/>{' '}
-                                                Check me out
-                                            </Label>
-                                        </FormGroup>
-                                    </Col>
-                                </FormGroup> */}
                                 <FormGroup check row>
                                     <Col className="text-center text-md-right" sm={{size: 10, offset: 2}}>
                                         <Button>Submit</Button>
