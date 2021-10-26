@@ -268,19 +268,19 @@ export default class Forms extends React.Component {
                             <CardTitle>Job Application Form</CardTitle>
                             <Form onSubmit={this.handleSubmit}>
                                 <FormGroup row>
-                                    <Label for="firstName" sm={3}>First Name</Label>
+                                    <Label for="firstName" sm={3}>First Name *</Label>
                                     <Col sm={9}>
                                         <Input type="text" name="firstName" id="firstName" required/>
                                     </Col>
                                 </FormGroup>
                                 <FormGroup row>
-                                    <Label for="lastName" sm={3}>Last Name</Label>
+                                    <Label for="lastName" sm={3}>Last Name *</Label>
                                     <Col sm={9}>
                                         <Input type="text" name="lastName" id="lastName" required/>
                                     </Col>
                                 </FormGroup>
                                 <FormGroup row>
-                                    <Label for="jobTitle" sm={3}>Job Title</Label>
+                                    <Label for="jobTitle" sm={3}>Job Title *</Label>
                                     <Col sm={9}>
                                         {this.state.searchJobID  !== '' ?
                                             <Input type="text" name="jobTitle" id="jobTitle" value={this.props.location.JobTitle} disabled/>
@@ -289,6 +289,7 @@ export default class Forms extends React.Component {
                                                 separator={true}                                   
                                                 className="ddstyle"
                                                 clearable={true}
+                                                required={true}
                                                 // labelField={this.state.labelField}
                                                 // valueField={this.state.valueField}
                                                 options={this.state.jobListOption}
@@ -323,24 +324,24 @@ export default class Forms extends React.Component {
                                     null    
                                 }
                                 <FormGroup row>
-                                    <Label for="yearsExp" sm={3}>Number Of Years' Experience</Label>
+                                    <Label for="yearsExp" sm={3}>Number Of Years' Experience *</Label>
                                     <Col sm={9}>
                                         <Input type="text" name="yearsExp" id="yearsExp" required value={this.state.yearsExp}  onChange={this.onHandleNumberInputChange}/>
                                     </Col>
                                 </FormGroup>
                                 <FormGroup row>
-                                    <Label for="prefLocation" sm={3}>Preferred Location</Label>
+                                    <Label for="prefLocation" sm={3}>Preferred Location *</Label>
                                     <Col sm={9}>
                                         <Input type="text" name="prefLocation" id="prefLocation" required/>
                                     </Col>
                                 </FormGroup>
                                 <FormGroup row>
-                                    <Label for="vacancyFoundIn" sm={3}>Where Did You Hear About The Vacancy</Label>
+                                    <Label for="vacancyFoundIn" sm={3}>Where Did You Hear About The Vacancy *</Label>
                                     <Col sm={9}>
                                         <FormGroup check onChange={this.check}>
                                         {this.state.vacancyFoundInList.map(row => 
                                         {
-                                            return(<Row form><Input type="radio" id={row.CodeDescription} value={row.SubCode} name={row.CodeCategory}/>{row.CodeDescription}</Row>)
+                                            return(<Row form><Input type="radio" required id={row.CodeDescription} value={row.SubCode} name={row.CodeCategory}/>{row.CodeDescription}</Row>)
                                         })
                                         }
                                         </FormGroup>
@@ -348,26 +349,26 @@ export default class Forms extends React.Component {
                                     </Col>
                                 </FormGroup>
                                 <FormGroup row>
-                                    <Label for="noticePeriod" sm={3}>Notice Period In Your Current Role (in Months)</Label>
+                                    <Label for="noticePeriod" sm={3}>Notice Period In Your Current Role (in Months) *</Label>
                                     <Col sm={9}>
                                         <Input type="text" name="noticePeriod" id="noticePeriod" required value={this.state.noticePeriod} onChange={this.onHandleNumberInputChange}/>
                                     </Col>
                                 </FormGroup>
                                 <FormGroup row>
-                                    <Label for="contactNo" sm={3}>Contact No.</Label>
+                                    <Label for="contactNo" sm={3}>Contact No. *</Label>
                                     <Col sm={9}>
                                         <Input type="tel" name="contactNo" id="contactNo" placeholder = "Contact No." value={this.state.contactNo} onChange={this.onHandleNumberInputChange} required />
                                     </Col>
                                 </FormGroup>
                                 <FormGroup row>
-                                    <Label for="email" sm={3}>Email</Label>
+                                    <Label for="email" sm={3}>Email *</Label>
                                     <Col sm={9}>
                                         <Input type="email" name="email" id="email" placeholder="example@example.com" required />
                                         {/* <Input type="email" name="email" id="email" placeholder="example@example.com" pattern="/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,15}/g" required oninvalid="this.setCustomValidity('Invalid Email Format')"/> */}
                                     </Col>
                                 </FormGroup>
                                 <FormGroup row>
-                                    <Label for="address" sm={3}>Address</Label>
+                                    <Label for="address" sm={3}>Address *</Label>
                                     <Col sm={9}>
                                         <Input type="text" name="address" id="address"/>
                                     </Col>
