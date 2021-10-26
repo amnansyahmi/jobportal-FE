@@ -356,7 +356,7 @@ export default class Forms extends React.Component {
                                 <FormGroup row>
                                     <Label for="contactNo" sm={3}>Contact No.</Label>
                                     <Col sm={9}>
-                                        <Input type="tel" name="contactNo" id="contactNo" placeholder = "Contact No." value={this.state.contactNo} onChange={this.onHandleNumberInputChange} />
+                                        <Input type="tel" name="contactNo" id="contactNo" placeholder = "Contact No." value={this.state.contactNo} onChange={this.onHandleNumberInputChange} required />
                                     </Col>
                                 </FormGroup>
                                 <FormGroup row>
