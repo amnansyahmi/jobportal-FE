@@ -60,37 +60,54 @@ constructor(props) {
       selector: row => row['FirstName'],
       sortable: true,
       wrap: true,
-      width: '16%'
+      width: '13%'
     },
     {
       name: 'Last Name',
       selector: row => row['LastName'],
       sortable: true,
       wrap: true,
-      width: '16%'
+      width: '13%'
     },
     {
       name: 'Date Applied',
       selector: row => moment(row['CreatedDt']).format('DD/MM/YYYY'),
       sortable: true,
       wrap: true,
-      width: '15%'
+      width: '13%'
     },
     {
       name: 'Job Applied',
       selector: row => row['JobTitle'],
       sortable: true,
       wrap: true,
-      width: '30%'
+      width: '28%'
     },
     {
         name: 'Status',
         sortable: true,
         wrap: true,
-        width: '18%',
+        width: '10%',
         cell: row => {
             return (<div>Pending</div>);
         }
+    },
+    {
+        name: 'Attachment',
+        sortable: true,
+        width: '17%',
+        ignoreRowClick: true,
+        cell: row => {
+                return (
+                        <div>
+                          <Row>
+                            <div>
+                                <a download={row.AttachmentName} href={row.Attachment}>{row.AttachmentName}</a>
+                            </div>
+                          </Row>
+                        </div>
+                      );
+                    },
     },
 ];
 
