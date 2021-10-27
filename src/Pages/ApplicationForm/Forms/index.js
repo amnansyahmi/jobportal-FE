@@ -190,6 +190,16 @@ export default class Forms extends React.Component {
         const firstName = document.getElementById('firstName').value;
         const lastName = document.getElementById('lastName').value;
         let jobId = "";
+
+        if(typeof  this.state.fileEncode == 'undefined')
+        {
+            swal({
+                title: 'Please Attach Your Resume. Thank You',
+                icon: 'warning',
+                button: 'Close',
+            })
+        }else{
+
         if(this.state.searchJobID !== '')
         {
             jobId = this.state.searchJobID;
@@ -251,6 +261,7 @@ export default class Forms extends React.Component {
                 // })
                 this.setState({isLoading: false});
             });
+        }
     };
 
     render() {
@@ -388,6 +399,7 @@ export default class Forms extends React.Component {
                                             cancelButtonText={"Cancel"}
                                             submitButtonText={"Submit"}
                                             maxFileSize={1000000}
+                                            filesLimit={1}
                                             onDrop={this.onDrop.bind(this)}
                                             showPreviewsInDropzone={false}
                                             showAlerts={false}
